@@ -55,7 +55,7 @@ function parseTasks(related, times) {
     tableHtml += `
         <tr data-task="${task.id}">
             <td><button type="button" class="btn rounded-circle btn-sm btn-success" data-type="start" data-id="${task.id}">▶️</button></td>
-            <td><a href="https://collab.nimax.ru${task.url_path}" target="_blank">#${task.task_number}</a></td>
+            <td><a href="https://collab.nimax.ru${task.url_path ? task.url_path : ""}" target="_blank">#${task.task_number}</a></td>
             <td>${projects[task.project_id].name}</td>
             <td><b>${timeFormat(times[task.id])}</b></td>
             <td>${task.name}</td>
@@ -133,10 +133,11 @@ function parseStopWatches(related) {
 
     let tasks = {};
     let tableHtml = "";
-
-    data.data.tasks.map((item) => {
-      tasks[item.id] = item;
-    });
+    if (data.data.tasks) {
+      data.data.tasks.map((item) => {
+        tasks[item.id] = item;
+      });
+    }
 
     if (watches) {
       for (const watch of watches) {
@@ -244,6 +245,11 @@ const debounceTimeFunc = _.debounce(() => {
   getTimes().then((data) => {
     if (data.data.error) {
       console.error(data.data.error);
+      return false;
+    }
+
+    if (!data.data.time_records) {
+      console.log(data.data);
       return false;
     }
 
