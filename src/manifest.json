@@ -1,0 +1,29 @@
+{
+  "name": "Collab timer",
+  "version": "{{prop-loader?version!../package.json}}",
+  "description": "Расширение для просмотра",
+  "background": {
+    "scripts": [
+      "{{./background/index.js}}"
+    ]
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://collab.nimax.ru/*"
+      ],
+      "js": [
+        "{{./content/index.js}}"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_title": "Collab timer",
+    "default_popup": "{{./popup/index.html}}"
+  },
+  "manifest_version": 2
+}

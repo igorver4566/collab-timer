@@ -1,0 +1,26 @@
+body {
+    width: 400px;
+}
+
+.row-title {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #5D2BFF;
+    color: #fff;
+    padding: 0 10px;
+    margin: 5px -13px;
+}
+
+#myTasks tr, #processTasks tr {
+    font-size: 12px;
+}
+
+.input-group input {
+    max-width: 40px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.input-group .input-group-text {
+    padding: 3px;
+}
