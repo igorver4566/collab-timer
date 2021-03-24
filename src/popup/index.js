@@ -151,6 +151,10 @@ function parseStopWatches(related) {
         time = time / 60 / 60;
         const task = tasks[watch.parent_id];
 
+        if (!task) {
+          continue;
+        }
+
         const button = !watch.started_on ?
           `<button type="button" data-type="play" class="btn rounded-circle btn-sm btn-success" data-id="${watch.id}">▶️</button>`
           :
