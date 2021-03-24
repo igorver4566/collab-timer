@@ -243,6 +243,8 @@ function parseStopWatches(related) {
 //TODO: сделать функцию без таймаута, для кнопок
 const debounceTimeFunc = _.debounce(() => {
   getTimes().then((data) => {
+    setTimeout(debounceTimeFunc, 30000);
+
     if (data.data.error) {
       console.error(data.data.error);
       return false;
@@ -259,8 +261,6 @@ const debounceTimeFunc = _.debounce(() => {
     parseStopWatches(related);
     const sumByTasks = parseTimes(times);
     parseTasks(related, sumByTasks);
-
-    setTimeout(debounceTimeFunc, 30000);
   });
 }, 10, true);
 
