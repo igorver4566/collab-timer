@@ -2,17 +2,33 @@ import axios from "axios"
 
 //https://app.activecollab.com/226440/api/v1/users/9/tasks
 
-export function getTasks() {
-  return request("/api/v1/users/346/tasks");
+export async function getTasks() {
+  let p = new Promise(function(resolve, reject){
+    chrome.storage.sync.get(['USER_ID'], function(options){
+      resolve(options);
+    })
+  });
+
+  const configOut = await p;
+
+  return request(`/api/v1/users/${configOut.USER_ID}/tasks`);
 }
 
-export function getTimes() {
+export async function getTimes() {
+  let p = new Promise(function(resolve, reject){
+    chrome.storage.sync.get(['USER_ID'], function(options){
+      resolve(options);
+    })
+  });
+
+  const configOut = await p;
+
   const to = new Date();
   const toFormat = `${to.getFullYear()}-${to.getMonth() + 1}-${to.getDate()}`;
   const from = new Date(to.getFullYear(), to.getMonth(), 1);
   const fromFormat = `${from.getFullYear()}-${from.getMonth() + 1}-${from.getDate()}`;
 
-  return request(`/api/v1/users/346/time-records/filtered-by-date?from=${fromFormat}&to=${toFormat}`);
+  return request(`/api/v1/users/${configOut.USER_ID}/time-records/filtered-by-date?from=${fromFormat}&to=${toFormat}`);
 }
 
 export function stopWatchesGet() {
